@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = Shema.Types.ObjectId;
+const ObjectId = Schema.Types.ObjectId;
 
 
 const studentSchema = new Schema({
@@ -19,7 +19,7 @@ const studentSchema = new Schema({
 
 studentSchema.set('toJSON', {
   virtuals: true,
-  transform: (doc, res) => {
+  transform: (doc, ret) => {
     delete res._id;
     delete res.__v;
   }
