@@ -3,9 +3,10 @@ const { MONGODB_URI, PORT } = require('../config');
 const server = mongoose.connect;
 const db = mongoose.connection;
 
-const Course = require('../models/course');
+const { Course, User } = require('../models');
 
 const seedStyles = require('../db/styles');
+const seedUsers = require('../db/users');
 
 
 console.log("Mounting DB")
@@ -17,7 +18,8 @@ server(MONGODB_URI, {newUrlParser: true})
 .then(() => {
   console.info('Loading Data')
   return Promise.all([
-    Course.insertMany(seedStyles)
+    Course.insertMany(seedStyles),
+    User.insertMany(seedUsers)
   ]);
 })
 .then(() => {
@@ -27,6 +29,7 @@ server(MONGODB_URI, {newUrlParser: true})
 .catch(err => {
   console.info('ERROR', err.message)
   console.info(err)
+  process.exit(1)
 })
  
 
