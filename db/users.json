@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "000000000000000000000000",
+    "fistName": "Matilda",
+    "lastName": "Okenfold",
+    "userName": "moaken",
+    "passWord": "unhashed",
+    "contact": "moaken@folder",
+    "isTeacher": false,
+    "courses": [],
+    "enrolled": true
+  },
+  {
+    "_id": "000000000000000000000001",
+    "fistName": "Skiff",
+    "lastName": "Zodiac",
+    "userName": "skodiac",
+    "passWord": "unhashed",
+    "contact": "sko@diac",
+    "isTeacher": false,
+    "courses": [],
+    "enrolled": false
+  },
+  {
+    "_id": "000000000000000000000002",
+    "fistName": "Geno",
+    "lastName": "Dino",
+    "userName": "gido",
+    "passWord": "unhashed",
+    "contact": "gin@dino",
+    "isTeacher": true,
+    "courses": ["100000000000000000000000"],
+    "enrolled": false
+  },
+  {
+    "_id": "000000000000000000000003",
+    "fistName": "Cora",
+    "lastName": "Lament",
+    "userName": "corla",
+    "passWord": "unhashed",
+    "contact": "cor@lame",
+    "isTeacher": true,
+    "courses": ["100000000000000000000001"],
+    "enrolled": false
+  },
+  {
+    "_id": "000000000000000000000004",
+    "fistName": "Pablo",
+    "lastName": "De Lucia",
+    "userName": "pablu",
+    "passWord": "unhashed",
+    "contact": "pab@luc",
+    "isTeacher": true,
+    "courses": ["100000000000000000000003"],
+    "enrolled": false
+    
+  }
+]
