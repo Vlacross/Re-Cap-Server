@@ -2,19 +2,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+const {VALID_STYLES} = require('./validators');
+
 
 const courseSchema = new Schema({
-  style: {type: String, required: true},
+  style: {type: String, required: true, enum: VALID_STYLES},
   teacher: {type: String, required: true},
   accepting: {type: Boolean, required: true},
   details: {
     descriptionShort: {type: String, required: true},
     descriptionLong: {type: String, required: true},
     difficulty: {type: String, required: true},
-    rates: {type: String, required: true},
-    length: {type: String, required: true},
+    cost: {type: Number, required: true},
+    length: {type: Number, required: true},
     schedule: {type: String, required: true}
-  }
+  },
+  enrollments: [{
+    type: ObjectId, 
+    ref: 'User'
+  }]
  
 }, {
   timestamps: true
