@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "000000000000000000000000",
+    "firstName": "Matilda",
+    "lastName": "Okenfold",
+    "userName": "moaken",
+    "passWord": "unhashed",
+    "contact": "moaken@folder",
+    "isTeacher": false,
+    "courses": [],
+    "enrolled": false
+  }
+
+
+]
+
+
+
+
+
+

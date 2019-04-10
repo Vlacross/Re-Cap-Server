@@ -1,7 +1,7 @@
 [
   {
     "_id": "000000000000000000000000",
-    "fistName": "Matilda",
+    "firstName": "Matilda",
     "lastName": "Okenfold",
     "userName": "moaken",
     "passWord": "unhashed",
@@ -12,7 +12,7 @@
   },
   {
     "_id": "000000000000000000000001",
-    "fistName": "Skiff",
+    "firstName": "Skiff",
     "lastName": "Zodiac",
     "userName": "skodiac",
     "passWord": "unhashed",
@@ -23,7 +23,7 @@
   },
   {
     "_id": "000000000000000000000002",
-    "fistName": "Geno",
+    "firstName": "Geno",
     "lastName": "Dino",
     "userName": "gido",
     "passWord": "unhashed",
@@ -34,7 +34,7 @@
   },
   {
     "_id": "000000000000000000000003",
-    "fistName": "Cora",
+    "firstName": "Cora",
     "lastName": "Lament",
     "userName": "corla",
     "passWord": "unhashed",
@@ -45,7 +45,7 @@
   },
   {
     "_id": "000000000000000000000004",
-    "fistName": "Pablo",
+    "firstName": "Pablo",
     "lastName": "De Lucia",
     "userName": "pablu",
     "passWord": "unhashed",
