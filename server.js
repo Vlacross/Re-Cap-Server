@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const { PORT, NODE_ENV, MONGODB_URI } = require('./config');
-const  Course  = require('./models/course')
+const  { Course, User }  = require('./models')
 
 let banner = `Welcome`;
 
@@ -33,10 +33,10 @@ app.get('/', (req, res) => {
 app.get('/too', (req, res) => {
   console.log('trighnahGetzum')
 
-  Course.findOne()
-  .then(style => {
-    console.log(style)
-    res.status(201).json(style)
+  User.findOne()
+  .then(user => {
+    console.log(user)
+    res.status(201).json(user)
   })
 
   

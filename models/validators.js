@@ -15,3 +15,6 @@ const VALID_STYLES = ['Tap', 'Ballet', 'Swing', 'Salsa', 'Flaminca']
 
 
 module.exports = { email, VALID_STYLES }
+
+
+
