@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
+const bcrypt = require('bcryptjs');
 
 const { email } = require('./validators')
 var custom = [email, 'Must have Valid Email format']
@@ -17,9 +18,9 @@ const userOptions = {
 const userSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  userName: { type: String, required: true, unique: true },
-  passWord: { type: String, required: true },
-  contact: { type: String, validate: custom, required: true }
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  contact: { type: String, validate: custom, required: true, unique: true }
 
 }, userOptions);
 
@@ -31,36 +32,9 @@ userSchema.set('toJSON', {
   }
 });
 
-// const User = mongoose.model('User', userSchema);
-
-
-
-// const teacherSchema = new Schema({
-//   activeTeacher: {type: Boolean, requied: true},
-//   course: {
-//     type: ObjectId,
-//     ref: 'Course',
-//     required: function() {return this.activeTeacher}
-//   },
-
-// });
-
-// const Staff = new User.discriminator('Staff', teacherSchema, options);
-
-
-
-// const studentSchema = new Schema({
-//   enrolled: { type: Boolean, required: true },
-//   courses: [{
-//     type: ObjectId,
-//     ref: 'Course',
-//     required: function () { return this.status || this.isTeacher }
-//   }]
-// });
-
-// const Student = new User.discriminator('Student', studentSchema, options);
-
-
+userSchema.methods.checkPass = function(pwd) {
+  return bcrypt.compareSync(pwd, this.password)
+};
 
 
 
