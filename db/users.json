@@ -1,58 +1,43 @@
 [
   {
-    "_id": "000000000000000000000000",
-    "firstName": "Matilda",
-    "lastName": "Okenfold",
-    "userName": "moaken",
-    "passWord": "unhashed",
-    "contact": "moaken@folder",
-    "isTeacher": false,
-    "courses": [],
-    "enrolled": true
+    "_id": "010000000000000000000000",
+    "firstName": "User1",
+    "lastName": "Last1",
+    "username": "user1",
+    "password": "unhashed",
+    "contact": "use@won"
   },
   {
-    "_id": "000000000000000000000001",
-    "firstName": "Skiff",
-    "lastName": "Zodiac",
-    "userName": "skodiac",
-    "passWord": "unhashed",
-    "contact": "sko@diac",
-    "isTeacher": false,
-    "courses": [],
-    "enrolled": false
+    "_id": "010000000000000000000001",
+    "firstName": "User2",
+    "lastName": "Last2",
+    "username": "user2",
+    "password": "unhashed",
+    "contact": "use@two"
   },
   {
-    "_id": "000000000000000000000002",
-    "firstName": "Geno",
-    "lastName": "Dino",
-    "userName": "gido",
-    "passWord": "unhashed",
-    "contact": "gin@dino",
-    "isTeacher": true,
-    "courses": ["100000000000000000000000"],
-    "enrolled": false
+    "_id": "010000000000000000000002",
+    "firstName": "User3",
+    "lastName": "Last3",
+    "username": "user3",
+    "password": "unhashed",
+    "contact": "use@three"
   },
   {
-    "_id": "000000000000000000000003",
-    "firstName": "Cora",
-    "lastName": "Lament",
-    "userName": "corla",
-    "passWord": "unhashed",
-    "contact": "cor@lame",
-    "isTeacher": true,
-    "courses": ["100000000000000000000001"],
-    "enrolled": false
+    "_id": "010000000000000000000003",
+    "firstName": "User4",
+    "lastName": "Last4",
+    "username": "user4",
+    "password": "unhashed",
+    "contact": "use@four"
   },
   {
-    "_id": "000000000000000000000004",
-    "firstName": "Pablo",
-    "lastName": "De Lucia",
-    "userName": "pablu",
-    "passWord": "unhashed",
-    "contact": "pab@luc",
-    "isTeacher": true,
-    "courses": ["100000000000000000000003"],
-    "enrolled": false
+    "_id": "010000000000000000000004",
+    "firstName": "BasicUser",
+    "lastName": "BasicLast",
+    "username": "basicUser",
+    "password": "unhashed",
+    "contact": "base@use"
     
   }
 ]

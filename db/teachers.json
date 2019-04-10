@@ -1,0 +1,37 @@
+[
+
+  {
+    "_id": "001000000000000000000002",
+    "firstName": "Geno",
+    "lastName": "Dino",
+    "username": "gido",
+    "password": "unhashed",
+    "contact": "gin@dino",
+    "activeTeacher": true,
+    "course": ["100000000000000000000000"],
+    "enrolled": false
+  },
+  {
+    "_id": "001000000000000000000003",
+    "firstName": "Cora",
+    "lastName": "Lament",
+    "username": "corla",
+    "password": "unhashed",
+    "contact": "cor@lame",
+    "activeTeacher": true,
+    "course": ["100000000000000000000001"],
+    "enrolled": false
+  },
+  {
+    "_id": "001000000000000000000004",
+    "firstName": "Pablo",
+    "lastName": "De Lucia",
+    "username": "pablu",
+    "password": "unhashed",
+    "contact": "pab@luc",
+    "activeTeacher": true,
+    "course": ["100000000000000000000003"],
+    "enrolled": false
+    
+  }
+]
