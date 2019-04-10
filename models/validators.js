@@ -9,9 +9,9 @@ function email(email) {
   if(!email.includes('@')) {
     console.log('faltz')
   }
-}
+};
 
-const VALID_STYLES = ['Tap', 'Ballet', 'Swing', 'Salsa', 'Flaminca']
+const VALID_STYLES = ['Swing', 'Salsa', 'Flaminca']
 
 
 module.exports = { email, VALID_STYLES }

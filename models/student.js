@@ -13,7 +13,7 @@ const studentSchema = new Schema({
   courses: [{
     type: ObjectId,
     ref: 'Course',
-    required: function () { return this.status || this.isTeacher }
+    required: function () { return this.enrolled }
   }]
 });
 
