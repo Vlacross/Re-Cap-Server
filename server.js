@@ -1,16 +1,21 @@
 const express = require('express');
 const app = express();
 
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 
 const { PORT, NODE_ENV, MONGODB_URI } = require('./config');
-const  { Course, User }  = require('./models')
+const  { Course, User }  = require('./models');
+const  { AuthRoute }  = require('./passport');
 
 let banner = `Welcome`;
-
 app.use(cors());
+
+
 
 app.use(morgan(
   NODE_ENV === 'development' ? 'dev' : 'tiny',
@@ -18,6 +23,12 @@ app.use(morgan(
     skip: () => NODE_ENV === 'test'
   }
 ));
+
+
+
+app.use('/login', AuthRoute);
+
+
 
 
 
