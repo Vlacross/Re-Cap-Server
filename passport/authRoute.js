@@ -7,15 +7,17 @@ const jsonParser = bodyParser.json();
 
 const mongoose = require('mongoose');
 
-const passport = require('passport');
 const jwtStrategy  = require('./jwtStrategy');
-const localStrategy = require('./localStrategy')
+const localStrategy = require('./localStrategy');
+
+const passport = require('passport');
 
 passport.use('local', localStrategy);
 passport.use('JWT', jwtStrategy);
 
-const localAuth = passport.authenticate('local', { sessiong: false });
-const jwtAuth = passport.authenticate('JWT', { sessiong: false });
+
+const localAuth = passport.authenticate('local', { session: false });
+const jwtAuth = passport.authenticate('JWT', { session: false });
 
 
 const { User } = require('../models')
@@ -25,7 +27,7 @@ const options = {
   expiresIn: JWT_EXPIRY
 };
 
-console.log('inauth')
+
 router.use(jsonParser)
 
 router.post('/', localAuth, (req, res) => {

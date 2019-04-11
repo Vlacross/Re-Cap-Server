@@ -16,19 +16,14 @@ let banner = `Welcome`;
 app.use(cors());
 
 
-
 app.use(morgan(
   NODE_ENV === 'development' ? 'dev' : 'tiny',
   {
     skip: () => NODE_ENV === 'test'
   }
-));
-
-
-
+  ));
+  
 app.use('/login', AuthRoute);
-
-
 
 
 

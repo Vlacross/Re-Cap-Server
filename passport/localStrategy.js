@@ -8,7 +8,7 @@ const { User } = require('../models');
 const localStrategy = new LocalStrategy(
 
   function(username, password, done) {
-    console.log('here', username, password)
+
     let user;
     User.findOne({username: username})
     .then(_user => {
@@ -22,7 +22,8 @@ const localStrategy = new LocalStrategy(
       if(!valid) {
         return Promise.reject({message: 'Invalid Password', reason: 'loginFail'})
       }
-      done(null, user);
+  
+       done(null, user);
     })
     .catch(err => {
       if(err.reason === 'loginFail') {
