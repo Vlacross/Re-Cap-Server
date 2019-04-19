@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
-const {VALID_STYLES} = require('./validators');
+const { VALID_STYLES, CLASS_SIZE_LIMIT } = require('./validators');
 
 
 const courseSchema = new Schema({
@@ -17,10 +17,10 @@ const courseSchema = new Schema({
     length: {type: Number, required: true},
     schedule: {type: String, required: true}
   },
-  enrollments: [{
-    type: ObjectId, 
-    ref: 'User'
-  }]
+  enrollments:{
+    type: [{ type: ObjectId, ref: 'User' }],
+    validate: [CLASS_SIZE_LIMIT, 'Maximum capacity reached!']
+}
  
 }, {
   timestamps: true
@@ -33,6 +33,31 @@ courseSchema.set('toJSON', {
     delete ret.__v;
   }
 });
+
+courseSchema.methods.displayCard = function() {
+  return {
+    id: this.id,
+    style: this.style,
+    teacher: this.teacher,
+    accepting: this.accepting,
+    description: this.details.descriptionShort
+  }
+};
+
+courseSchema.methods.infoSheet = function() {
+  return {
+    id: this.id,
+    style: this.style,
+    teacher: this.teacher,
+    accepting: this.accepting,
+    classSize: this.enrollments.length,
+    description: this.details.descriptionLong,
+    difficulty: this.difficulty,
+    length: this.details.length,
+    cost: this.details.cost,
+    schedule: this.details.schedule
+  }
+};
 
 courseSchema.pre('find', function() {
   this.populate({ 
