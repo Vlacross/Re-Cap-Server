@@ -2,8 +2,8 @@
 
   {
     "_id": "001000000000000000000002",
-    "firstName": "Geno",
-    "lastName": "Dino",
+    "firstname": "Geno",
+    "lastname": "Dino",
     "username": "gido",
     "password": "unhashed",
     "contact": "gin@dino",
@@ -13,8 +13,8 @@
   },
   {
     "_id": "001000000000000000000003",
-    "firstName": "Cora",
-    "lastName": "Lament",
+    "firstname": "Cora",
+    "lastname": "Lament",
     "username": "corla",
     "password": "unhashed",
     "contact": "cor@lame",
@@ -24,8 +24,8 @@
   },
   {
     "_id": "001000000000000000000004",
-    "firstName": "Pablo",
-    "lastName": "De Lucia",
+    "firstname": "Pablo",
+    "lastname": "De Lucia",
     "username": "pablu",
     "password": "unhashed",
     "contact": "pab@luc",

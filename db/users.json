@@ -1,40 +1,40 @@
 [
   {
     "_id": "010000000000000000000000",
-    "firstName": "User1",
-    "lastName": "Last1",
+    "firstname": "User1",
+    "lastname": "Last1",
     "username": "user1",
     "password": "unhashed",
     "contact": "use@won"
   },
   {
     "_id": "010000000000000000000001",
-    "firstName": "User2",
-    "lastName": "Last2",
+    "firstname": "User2",
+    "lastname": "Last2",
     "username": "user2",
     "password": "unhashed",
     "contact": "use@two"
   },
   {
     "_id": "010000000000000000000002",
-    "firstName": "User3",
-    "lastName": "Last3",
+    "firstname": "User3",
+    "lastname": "Last3",
     "username": "user3",
     "password": "unhashed",
     "contact": "use@three"
   },
   {
     "_id": "010000000000000000000003",
-    "firstName": "User4",
-    "lastName": "Last4",
+    "firstname": "User4",
+    "lastname": "Last4",
     "username": "user4",
     "password": "unhashed",
     "contact": "use@four"
   },
   {
     "_id": "010000000000000000000004",
-    "firstName": "BasicUser",
-    "lastName": "BasicLast",
+    "firstname": "BasicUser",
+    "lastname": "BasicLast",
     "username": "basicUser",
     "password": "unhashed",
     "contact": "base@use"

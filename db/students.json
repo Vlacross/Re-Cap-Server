@@ -1,8 +1,8 @@
 [
   {
     "_id": "000100000000000000000000",
-    "firstName": "Matilda",
-    "lastName": "Okenfold",
+    "firstname": "Matilda",
+    "lastname": "Okenfold",
     "username": "moaken",
     "password": "unhashed",
     "contact": "moaken@folder",
