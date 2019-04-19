@@ -21,11 +21,27 @@ router.use(jsonParser);
 router.get('/', (req, res) => {
   console.log('CoursesTrigger')
   Course.find()
-    .then(courses => {
+    .then(list => {
+      courses = [];
+      list.forEach(course => {
+        courses.push(course.displayCard())
+      })
       
         return res.json(courses)})
 
 })
+
+router.get('/details/:id', (req, res) => {
+  console.log('Firing Single Course', req.params.id)
+  Course.findOne({_id: req.params.id})
+    .then(course => {
+
+     return res.json(course.infoSheet())
+      })
+   
+
+})
+
 
 /*Student signup */
 
