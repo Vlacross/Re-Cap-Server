@@ -16,8 +16,8 @@ const userOptions = {
 
 /* add - isTeacher: Boolean() */
 const userSchema = new Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstname: { type: String, required: true },
+  lastname: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   contact: { type: String, validate: custom, required: true, unique: true }
@@ -26,7 +26,7 @@ const userSchema = new Schema({
 
 userSchema.set('toJSON', {
   virtuals: true,
-  transform: (doc, ret) => {
+  transform: (doc, res) => {
     delete res._id;
     delete res.__v;
   }
@@ -35,6 +35,29 @@ userSchema.set('toJSON', {
 userSchema.methods.checkPass = function(pwd) {
   return bcrypt.compareSync(pwd, this.password)
 };
+
+userSchema.methods.format = function() {
+  return {
+    id: this.id,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    contact: this.contact
+  }
+}
+
+/*hash password on save */
+userSchema.pre('save', function(next) {
+
+  let user = this;
+  
+  if(!user.isModified('password')) {
+    return next()
+  }
+
+  user.password = bcrypt.hashSync(user.password, 10)
+ 
+  return next()
+});
 
 
 
