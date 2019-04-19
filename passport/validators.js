@@ -48,11 +48,12 @@ const emailFormatCheck = (req, res, next) => {
   console.log('emailFormatCheck')
   let email = req.body.contact
 
-  if(typeof email != "string" || !email.includes('@')) {
+                                    // !email.includes('@'))
+  if(typeof email != "string" || !/(.+)@(.+)\.(.{3})/g.test(email)) {
 
     msg = {
       code: 422,
-      message: `Improper Email Format. Format example: 'email@example.com'!`,
+      message: `Improper Email Format. Format example: 'name@domain.com'!`,
       reason: `Improper Email Format. Format xample: 'email@example.com'!`
     }
     return res.status(400).json(msg)

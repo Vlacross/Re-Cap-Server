@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const JWT = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json()
 
 
-const { checkComplete, formatToCommon, emailFormatCheck, validatorChain } = require('./validators')
+const { checkComplete, formatToCommon, emailFormatCheck } = require('./validators')
 const jwtStrategy  = require('./jwtStrategy');
 const localStrategy = require('./localStrategy');
 
@@ -26,34 +26,60 @@ const options = {
   algorithm: ALG,
   expiresIn: JWT_EXPIRY
 };
+const buildToken = function(user) {
+  return jwt.sign({ user }, JWT_SECRET, options)
+};
 
 router.use(jsonParser)
 
-router.post('/', 
+
+
+router.post('/', localAuth, (req, res) => {
+console.log(req.body)
+User.findOne({username: req.body.username})
+.then(user => {
+
+    userData = {
+      firstname: user.firstname,
+       lastname: user.lastname
+      }
+    let rez = buildToken(userData)
+    
+  console.log('loginFired')
+  res.json(rez)
+})
+});
+
+
+router.post('/newUser', 
   checkComplete,
   formatToCommon,
   emailFormatCheck, (req, res) => {
   console.log('GotPast')
   console.log(req.body)
-  
-  res.json(`HELLO!`).status(200)
-})
+  const { firstname, lastname, username, contact, password } = req.body;
+  User.create({
+    firstname,
+    lastname,
+    username,
+    contact,
+    password
+  })
+  .then(newUser => {
+    let token = buildToken(newUser.format())
+    res.json(token)
+  })
+  .catch(err => {
+    console.log(err)
+    // let error = {
+    //   code: err.code,
+    //   message: err.errmsg
+    // }
+    res.json(err)
+  })
 
-router.post('/newUser', localAuth, (req, res) => {
-console.log(req.body)
-User.findOne({username: req.body.username})
-.then(user => {
+});
 
-  let rez = {
-    user: {
-      firstname: user.firstName,
-       lastname: user.lastName
-      }
-    }
-  console.log(rez)
-  res.json(rez)
-})
-})
 
 
 module.exports = router;
