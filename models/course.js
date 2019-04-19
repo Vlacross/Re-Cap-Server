@@ -34,6 +34,15 @@ courseSchema.set('toJSON', {
   }
 });
 
+courseSchema.pre('find', function() {
+  this.populate({ 
+    path: 'enrollments',
+  options: { select: { createdAt: 0, courses: 0, enrolled: 0, id: 0, password: 0, updatedAt: 0, username: 0 } } 
+  })
+});
+
+
+
 module.exports = mongoose.model('Course', courseSchema) 
 
 /*  For setting the rates to a dollar amount - may need to adjust path for subDocs */
