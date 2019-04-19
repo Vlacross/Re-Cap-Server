@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const mongoose = require('mongoose');
+
+const { Student } = require('../models')
+
 
 // const jwtStrategy = require('../passport');
 // const passport = require('passport');
@@ -12,16 +14,18 @@ const mongoose = require('mongoose');
 
 
 
-// router.use(bodyParser.json());
+router.use(jsonParser);
 // router.use('*', jwtAuth);
 
 
-router.get('/find/:id', (req, res) => {
-	EventPlan.findOne({_id: req.params.id})
-		.then(event => {
-			res.json(event.serialize())
-		})
-});
+router.get('/', (req, res) => {
+  console.log('CoursesTrigger')
+  Course.find()
+    .then(courses => {
+      
+        return res.json(courses)})
+
+})
 
 
 
