@@ -4,6 +4,12 @@ const ObjectId = Schema.Types.ObjectId;
 
 const { VALID_STYLES, CLASS_SIZE_LIMIT } = require('./validators');
 
+const limit = val => console.log('validating!!!!!!!!!!!!!!!!!!');
+
+let maxNum = {
+  validator: limit,
+  message: 'Maximum capacity reached!'
+}
 
 const courseSchema = new Schema({
   style: {type: String, required: true, enum: VALID_STYLES},
@@ -17,10 +23,13 @@ const courseSchema = new Schema({
     length: {type: Number, required: true},
     schedule: {type: String, required: true}
   },
-  enrollments:{
-    type: [{ type: ObjectId, ref: 'User' }],
-    validate: [CLASS_SIZE_LIMIT, 'Maximum capacity reached!']
-}
+  enrollments:[{ 
+    type: ObjectId,
+     ref: 'User',
+     validate: maxNum,
+     unique: true
+     }],
+
  
 }, {
   timestamps: true
