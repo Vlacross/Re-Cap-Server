@@ -23,12 +23,9 @@ const courseSchema = new Schema({
     length: {type: Number, required: true},
     schedule: {type: String, required: true}
   },
-  enrollments:[{ 
-    type: ObjectId,
-     ref: 'User',
-     validate: maxNum,
-     unique: true
-     }],
+  enrollments:[
+    { type: ObjectId, ref: 'User' }
+  ]
 
  
 }, {

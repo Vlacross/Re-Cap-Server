@@ -59,15 +59,15 @@ router.put('/signup/:id', (req, res) => {
 
   User.findOne({_id: req.body.user})
   .then(user => {
-  // console.log(!user.kind)
+  /*check if user is already Student discriminator and update data-model if not */
     if(!user.kind) {
       return User.findByIdAndUpdate(user.id, { $set: {kind: "Student"} }, {upsert: true, new: true })
       .then(user => {
         return Student.findByIdAndUpdate(user.id, { $set: { enrolled: false, courses: [ ] } }, {upsert: true, new: true, runValidators: true })
       })
     }
-    // console.log(user.kind)
   })
+  /*avoid duplicate entries in courseData 'enrollments' */
   Course.findOne({_id: req.params.id})
   .then(course => {
     let id = JSON.stringify(req.body.user)
@@ -75,10 +75,12 @@ router.put('/signup/:id', (req, res) => {
     if(current.length !== 0) {
       console.log('already enrolled!')
       return Promise.reject({
+        type: 'error',
         code: 451,
         message: "User is already enrolled in this course!"
       })
     }
+    /*share Id's between course and student dataFiles */
     Promise.all([
       Course.findByIdAndUpdate(req.params.id, { $push: { 'enrollments': req.body.user } }, { new: true }),
       Student.findByIdAndUpdate(req.body.user, { $push: { 'courses': req.params.id } }, { new: true })
@@ -90,10 +92,7 @@ router.put('/signup/:id', (req, res) => {
   })
   .catch(err => {
     console.log(err.message)
-    res.json({
-      code: err.code,
-      message: err.message
-    })
+    res.json(err)
   })
 });
 
