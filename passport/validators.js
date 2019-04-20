@@ -71,3 +71,4 @@ const validatorChain = (req, res, next) => {
 
 
 module.exports = { checkComplete, formatToCommon, emailFormatCheck, validatorChain }
+

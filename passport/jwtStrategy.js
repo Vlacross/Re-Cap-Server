@@ -10,11 +10,12 @@ const { User } = require('../models');
 const options = {
   secretOrKey: JWT_SECRET,
   algorithm: ALGORITHM,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer')
 }
 
 const jwtStrategy = new JwtStrategy(options, function(jwt_payload, done) {
-  User.findOne({id: jwt_payload.sub}, function(er, usr) {
+  console.log(jwt_payload.user.id)
+  User.findOne({_id: jwt_payload.user.id}, function(err, user) {
     if(err) { return done(err, false); }
     if(user) { return done(null, user); } 
     else {

@@ -33,21 +33,24 @@ const buildToken = function(user) {
 router.use(jsonParser)
 
 
+router.post('/refresh', jwtAuth, (req, res) => {
+  console.log('that It ISSSSS!')
+  token = buildToken(req.user.format())
+  res.json(token)
+})
+
 
 router.post('/', localAuth, (req, res) => {
 console.log(req.body)
 User.findOne({username: req.body.username})
 .then(user => {
 
-    userData = {
-      firstname: user.firstname,
-       lastname: user.lastname
-      }
-    let rez = buildToken(userData)
+    let token = buildToken(user.format())
     
   console.log('loginFired')
-  res.json(rez)
+  res.json(token)
 })
+.catch(err => res.json(err))
 });
 
 
