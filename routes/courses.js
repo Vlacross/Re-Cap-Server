@@ -3,7 +3,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const { Course, User } = require('../models')
+const { Course, User, Student } = require('../models')
 
 
 // const jwtStrategy = require('../passport');
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/details/:id', (req, res) => {
-  console.log('Firing Single Course', req.params.id)
+  console.log('Firing Single Course')
   Course.findOne({_id: req.params.id})
     .then(course => {
 
@@ -46,7 +46,7 @@ router.get('/details/:id', (req, res) => {
 /*Student signup */
 
 /*
--add course id's to cards on client side
+
 ______________________________________________________________________________
 ______________________________________________________________________________
 -find course by id(id connected to card user clicks on client side)
@@ -54,14 +54,48 @@ ______________________________________________________________________________
 -[if already Student] findByIdAndupdate userData.courses push  {progress: 0, { courseId } }
 */
 
-router.post('/', (req, res) => {
-  console.log('courseSignUp')
-  Course.findOne({})
-    .then(courses => {
-      
-        return res.json(courses)})
+router.put('/signup/:id', (req, res) => {
+  console.log('courseSignUp', req.body)
 
-})
+  User.findOne({_id: req.body.user})
+  .then(user => {
+  // console.log(!user.kind)
+    if(!user.kind) {
+      return User.findByIdAndUpdate(user.id, { $set: {kind: "Student"} }, {upsert: true, new: true })
+      .then(user => {
+        return Student.findByIdAndUpdate(user.id, { $set: { enrolled: false, courses: [ ] } }, {upsert: true, new: true, runValidators: true })
+      })
+    }
+    // console.log(user.kind)
+  })
+  Course.findOne({_id: req.params.id})
+  .then(course => {
+    let id = JSON.stringify(req.body.user)
+    let current = course.enrollments.filter(student => (JSON.stringify(student) === id))
+    if(current.length !== 0) {
+      console.log('already enrolled!')
+      return Promise.reject({
+        code: 451,
+        message: "User is already enrolled in this course!"
+      })
+    }
+    Promise.all([
+      Course.findByIdAndUpdate(req.params.id, { $push: { 'enrollments': req.body.user } }, { new: true }),
+      Student.findByIdAndUpdate(req.body.user, { $push: { 'courses': req.params.id } }, { new: true })
+      .then(student => {
+        console.log('studdell', student)
+        res.json(student)
+      })
+    ])
+  })
+  .catch(err => {
+    console.log(err.message)
+    res.json({
+      code: err.code,
+      message: err.message
+    })
+  })
+});
 
 
 module.exports = router
