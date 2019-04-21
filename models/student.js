@@ -17,6 +17,18 @@ const studentSchema = new Schema({
   }]
 });
 
+studentSchema.methods.format = function() {
+  return {
+    id: this.id,
+    fullname: this.fullname,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    contact: this.contact,
+    enrolled: this.enrolled,
+    courses: this.courses
+  }
+}
+
 const Student = User.discriminator('Student', studentSchema);
 
 
