@@ -14,7 +14,7 @@ let maxNum = {
 const courseSchema = new Schema({
   style: {type: String, required: true, enum: VALID_STYLES},
   teacher: {type: String, required: true},
-  accepting: {type: Boolean, required: true},
+  accepting: {type: Boolean, required: true, default: true},
   details: {
     descriptionShort: {type: String, required: true},
     descriptionLong: {type: String, required: true},
@@ -23,9 +23,7 @@ const courseSchema = new Schema({
     length: {type: Number, required: true},
     schedule: {type: String, required: true}
   },
-  enrollments:[
-    { type: ObjectId, ref: 'User' }
-  ]
+  enrollments:[ { type: ObjectId, ref: 'User' } ]
 
  
 }, {
@@ -72,6 +70,21 @@ courseSchema.pre('find', function() {
   })
 });
 
+// courseSchema.pre('findOneAndUpdate', function() {
+//   console.log('update')
+
+//   return this.findOne({}, function(err, doc) {
+//     if(err) {
+//       return console.log('err', err)
+//     }
+//     console.log('doccyDOCCY', doc, doc.enrollments.length === 0)
+//     let course = doc
+//     course.enrollments = doc.enrollments.length === 0
+//     return course
+    
+    
+//   })
+// });
 
 
 module.exports = mongoose.model('Course', courseSchema) 
