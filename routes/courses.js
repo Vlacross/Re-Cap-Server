@@ -5,11 +5,18 @@ const jsonParser = bodyParser.json();
 
 const { Course, User, Student } = require('../models')
 
+const { isStudent, checkEnrolled, noDuplicates, avoidExceed } = require('./validators')
 
-// const jwtStrategy = require('../passport');
-// const passport = require('passport');
-// passport.use('JWT', jwtStrategy);
-// const jwtAuth = passport.authenticate('JWT', { session: false });
+const jwtStrategy  = require('../passport/jwtStrategy');
+// const localStrategy = require('../passport');
+
+const passport = require('passport');
+
+// passport.use('local', localStrategy);
+passport.use('JWT', jwtStrategy);
+
+// const localAuth = passport.authenticate('local', { session: false });
+const jwtAuth = passport.authenticate('JWT', { session: false });
 
 
 
@@ -52,48 +59,46 @@ ______________________________________________________________________________
 -find course by id(id connected to card user clicks on client side)
 -[if no kind]findByIdAndupdate userData to be student(object.assign({}, userData, {enrolled: true, courses: [ {progress: 0, { courseId } }]}))
 -[if already Student] findByIdAndupdate userData.courses push  {progress: 0, { courseId } }
+isStudent, checkEnrolled, noDuplicates,
 */
 
-router.put('/signup/:id', (req, res) => {
-  console.log('courseSignUp', req.body)
-
-  User.findOne({_id: req.body.user})
-  .then(user => {
-  /*check if user is already Student discriminator and update data-model if not */
-    if(!user.kind) {
-      return User.findByIdAndUpdate(user.id, { $set: {kind: "Student"} }, {upsert: true, new: true })
-      .then(user => {
-        return Student.findByIdAndUpdate(user.id, { $set: { enrolled: false, courses: [ ] } }, {upsert: true, new: true, runValidators: true })
-      })
-    }
-  })
-  /*avoid duplicate entries in courseData 'enrollments' */
-  Course.findOne({_id: req.params.id})
-  .then(course => {
-    let id = JSON.stringify(req.body.user)
-    let current = course.enrollments.filter(student => (JSON.stringify(student) === id))
-    if(current.length !== 0) {
-      console.log('already enrolled!')
-      return Promise.reject({
-        type: 'error',
-        code: 451,
-        message: "User is already enrolled in this course!"
-      })
-    }
+router.put('/signup/:id', isStudent, checkEnrolled, noDuplicates, avoidExceed, (req, res) => {
+  console.log('courseSignUp', req.body, typeof req.body)
+  console.log('paramtel', req.params.id, typeof req.params.id)
     /*share Id's between course and student dataFiles */
     Promise.all([
-      Course.findByIdAndUpdate(req.params.id, { $push: { 'enrollments': req.body.user } }, { new: true }),
-      Student.findByIdAndUpdate(req.body.user, { $push: { 'courses': req.params.id } }, { new: true })
+      Course.findByIdAndUpdate(req.params.id, { $push: { 'enrollments': req.body.user } }, { runValidators: true, new: true }),
+      Student.findByIdAndUpdate(req.body.user, { $push: { 'courses': req.params.id }, $set: { 'enrolled': true } }, { runValidators: true, new: true })
       .then(student => {
-        console.log('studdell', student)
-        res.json(student)
+        // console.log('studdell', student)
+        res.json(student.format())
       })
     ])
-  })
+  // })
   .catch(err => {
     console.log(err.message)
     res.json(err)
   })
+});
+
+
+router.put('/remove/:id', jwtAuth, (req, res) => {
+  console.log('courseUnSignUp', req.body)
+    /*remove shared Id's between course and student dataFiles */
+  Promise.all([
+    Course.findByIdAndUpdate(req.params.id, { $pull: { 'enrollments': req.body.user } }, { new: true }),
+    Student.findByIdAndUpdate(req.body.user, { $pull: { 'courses': req.params.id }, $set: { 'enrolled': false } }, { new: true })
+    .then(student => {
+      console.log('studdell', student)
+      res.json(student.format())
+    })
+  ])
+  
+  .catch(err => {
+    console.log(err.message)
+    res.json(err)
+  })
+
 });
 
 
