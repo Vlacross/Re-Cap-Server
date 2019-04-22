@@ -14,7 +14,6 @@ const options = {
 }
 
 const jwtStrategy = new JwtStrategy(options, function(jwt_payload, done) {
-  console.log(jwt_payload.user.id)
   User.findOne({_id: jwt_payload.user.id}, function(err, user) {
     if(err) { return done(err, false); }
     if(user) { return done(null, user); } 
