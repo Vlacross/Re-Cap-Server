@@ -32,6 +32,10 @@ userSchema.set('toJSON', {
   }
 });
 
+userSchema.virtual('fullname').get(function() {
+  return this.firstname + ' ' + this.lastname
+})
+
 userSchema.methods.checkPass = function(pwd) {
   return bcrypt.compareSync(pwd, this.password)
 };
@@ -39,6 +43,7 @@ userSchema.methods.checkPass = function(pwd) {
 userSchema.methods.format = function() {
   return {
     id: this.id,
+    fullname: this.fullname,
     firstname: this.firstname,
     lastname: this.lastname,
     contact: this.contact
@@ -55,7 +60,6 @@ userSchema.pre('save', function(next) {
   }
 
   user.password = bcrypt.hashSync(user.password, 10)
- 
   return next()
 });
 
