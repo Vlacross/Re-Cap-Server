@@ -35,13 +35,29 @@ router.use(jsonParser)
 
 router.post('/refresh', jwtAuth, (req, res) => {
   console.log('that It ISSSSS!')
+  
   User.findOne({_id: req.user.id})
   .then(user => {
-
-    let token = buildToken(user.format())
-    res.json(token)
+let model;
+switch(user.kind) {
+    case null:
+    model = User;
+    break;
+    case 'Student':
+    model = Student;
+    break;
+    case 'Teacher':
+    model = Teacher;
+    break; 
   }
-    )
+  return model.findOne({_id: req.user.id})
+  .then(user => {
+    console.log(user.format())
+    let token = buildToken(user.format())
+
+    res.json(token)
+  })
+})
 })
 
 
