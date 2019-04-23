@@ -6,6 +6,7 @@
     "username": "moaken",
     "password": "unhashed",
     "contact": "moaken@folder",
+    "progress": 2,
     "courses": [],
     "enrolled": false
   }
