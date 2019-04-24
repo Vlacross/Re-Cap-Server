@@ -50,7 +50,9 @@ app.get('/too', (req, res) => {
   
 })
 
-
+app.use('*', (res, req) => {
+  res.status(418).json({message: `Specified path not found!`})
+})
 
 
 
@@ -85,3 +87,4 @@ if (require.main === module) {
   runServer()
 }
 
+module.exports = { app }
