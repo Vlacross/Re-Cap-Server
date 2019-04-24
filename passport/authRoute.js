@@ -64,12 +64,25 @@ switch(user.kind) {
 router.post('/', localAuth, (req, res) => {
 console.log(req.body)
 User.findOne({username: req.body.username})
-.then(user => {
-
+  .then(user => {
+  let model;
+  switch(user.kind) {
+    case null:
+    model = User;
+    break;
+    case 'Student':
+    model = Student;
+    break;
+    case 'Teacher':
+    model = Teacher;
+    break; 
+  }
+  return model.findOne({_id: req.user.id})
+  .then(user => {
     let token = buildToken(user.format())
-    
-  console.log('loginFired')
+    console.log('loginFired')
   res.json(token)
+  })
 })
 .catch(err => res.json(err))
 });
