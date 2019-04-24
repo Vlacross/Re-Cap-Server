@@ -40,17 +40,10 @@ studentSchema.pre('findOne', function() {
   })
 });
 
-/*[reacher, id, style, ] */
+
 
 const Student = User.discriminator('Student', studentSchema);
 
-
-// courseSchema.pre('find', function() {
-//   this.populate({ 
-//     path: 'enrollments',
-//   options: { select: { createdAt: 0, courses: 0, enrolled: 0, id: 0, password: 0, updatedAt: 0, username: 0 } } 
-//   })
-// });
 
 
 module.exports = mongoose.model('Student', studentSchema)
