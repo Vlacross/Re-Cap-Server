@@ -25,7 +25,7 @@ teacherSchema.methods.format = function() {
     firstname: this.firstname,
     lastname: this.lastname,
     contact: this.contact,
-    activeTeacher: this.enrolled,
+    activeTeacher: this.activeTeacher,
     course: this.courses
   }
 }
