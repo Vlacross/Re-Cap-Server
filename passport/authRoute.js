@@ -79,7 +79,7 @@ User.findOne({username: req.body.username})
   return model.findOne({_id: req.user.id})
   .then(user => {
     let token = buildToken(user.format())
-    console.log('loginFired')
+    console.log('loginFired', user.format())
   res.json(token)
   })
 })
