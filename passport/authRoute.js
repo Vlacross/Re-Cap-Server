@@ -70,7 +70,7 @@ User.findOne({username: req.body.username})
     case 'Student':
     model = Student;
     break;
-    case 'Teacher':
+    case 'Staff':
     model = Teacher;
     break; 
     default:

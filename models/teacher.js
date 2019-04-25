@@ -18,6 +18,18 @@ const teacherSchema = new Schema({
 
 });
 
+teacherSchema.methods.format = function() {
+  return {
+    id: this.id,
+    fullname: this.fullname,
+    firstname: this.firstname,
+    lastname: this.lastname,
+    contact: this.contact,
+    activeTeacher: this.enrolled,
+    course: this.courses
+  }
+}
+
 const Staff = User.discriminator('Staff', teacherSchema);
 
 
