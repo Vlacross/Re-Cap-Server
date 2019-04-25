@@ -40,15 +40,14 @@ router.post('/refresh', jwtAuth, (req, res) => {
   .then(user => {
 let model;
 switch(user.kind) {
-    case null:
-    model = User;
-    break;
     case 'Student':
     model = Student;
     break;
     case 'Teacher':
     model = Teacher;
     break; 
+    default:
+    model = User;
   }
   return model.findOne({_id: req.user.id})
   .then(user => {
