@@ -8,13 +8,17 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const { PORT, NODE_ENV, MONGODB_URI } = require('./config');
+const { PORT, NODE_ENV, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
 const  { Course, User }  = require('./models');
 const  { AuthRoute }  = require('./passport');
 const  { CourseRoutes }  = require('./routes');
 
 let banner = `Welcome`;
-app.use(cors());
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+  );
 
 
 app.use(morgan(
