@@ -15,9 +15,7 @@ const  { CourseRoutes }  = require('./routes');
 
 let banner = `Welcome`;
 app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
+  cors()
   );
 
 
