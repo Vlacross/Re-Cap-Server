@@ -15,8 +15,10 @@ const  { CourseRoutes }  = require('./routes');
 
 let banner = `Welcome`;
 app.use(
-  cors()
-  );
+  cors({
+      origin: CLIENT_ORIGIN
+    })
+    );
 
 
 app.use(morgan(
@@ -52,7 +54,7 @@ app.get('/too', (req, res) => {
   
 })
 
-app.use('*', (res, req) => {
+app.use('*', (req, res) => {
   res.status(418).json({message: `Specified path not found!`})
 })
 
