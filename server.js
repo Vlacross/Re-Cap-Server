@@ -34,7 +34,7 @@ app.use('/courses', CourseRoutes);
 
 
 app.get('/', (req, res) => {
-  console.log('made first GET!')
+  console.log('made first GET!', CLIENT_ORIGIN)
 
   res.json(banner).status(200)
 });
