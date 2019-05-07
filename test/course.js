@@ -32,7 +32,7 @@ const buildToken = function(user) {
 
 const allUsers = [ ...seedStudents, ...seedTeachers, ...seedUsers ]
 
-describe('Course routes actions', function() {
+describe('All Course actions', function() {
   this.timeout(5000)
 
   before(function() {
@@ -67,25 +67,64 @@ describe('Course routes actions', function() {
      console.log('unMounting')
      return mongoose.disconnect()
    })
- 
-   describe('basice functionality', function() {
+
+
+
+   describe('basic Unit-Integration functions', function() {
      
 
-    it('Should prove Unit functions', () => {
-        console.log('firstTest')
+    it('Should prove unit Integration functions -GET', () => {
         return chai.request(app)
           .get('/')
           .then((res) => {
             console.log(res.body)
             expect(res.body).to.include('Welcome')
           })
-        // return User.find()
-        // .then(users => {
-        //   expect(users).to.be.an('array')
-        // })
+        
       })
 
+      it('Should get array of courses', () => {
+        return chai.request(app)
+          .get('/courses')
+          .then((res) => {
+            console.log(res.body)
+            expect(res.body).to.be.an('array')
+          })
+      })
+
+      it.only('Should get single course info by id', () => {
+        return chai.request(app)
+          .get('/courses')
+          .then((res) => {
+            console.log(res.body[0].id)
+            return chai.request(app)
+            .get(`/courses/details/${res.body[0].id}`)
+            .then(res => {
+              console.log(res.body)
+              expect(res.body).to.be.an('object')
+              expect(res.body).to.have.keys('style', 'teacher', 'accepting', 'classSize', 'description', 'length', 'cost', 'schedule', 'id')
+            })
+          })
+      })
+
+      /*
+      enroll endpoint
+      */
+ 
+
+
+
+
+
    });
+ 
+  
+
+
+
+  
+
+   
 
  
  
