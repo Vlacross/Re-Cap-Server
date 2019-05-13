@@ -1,4 +1,4 @@
 module.exports = {
-  StudentRoutes: require('./students'),
+  UserRoutes: require('./users'),
   CourseRoutes: require('./courses')
 }

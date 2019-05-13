@@ -22,21 +22,24 @@ const jwtAuth = passport.authenticate('JWT', { session: false });
 
 
 router.use(jsonParser);
-// router.use('*', jwtAuth);
 
 
 router.get('/', (req, res) => {
   console.log('CoursesTrigger')
   Course.find()
-    .then(list => {
-      courses = [];
-      list.forEach(course => {
-        courses.push(course.displayCard())
-      })
-      
-        return res.json(courses)})
+  .then(list => {
+    courses = [];
+    list.forEach(course => {
+      courses.push(course.displayCard())
+    })
+    
+    return res.json(courses)})
+    
+  })
 
-})
+
+  // router.use('*', jwtAuth);
+
 
 router.get('/details/:id', (req, res) => {
   console.log('Firing Single Course')

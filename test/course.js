@@ -92,7 +92,7 @@ describe('All Course actions', function() {
           })
       })
 
-      it.only('Should get single course info by id', () => {
+      it('Should get single course info by id', () => {
         return chai.request(app)
           .get('/courses')
           .then((res) => {

@@ -11,7 +11,7 @@ const cors = require('cors');
 const { PORT, NODE_ENV, MONGODB_URI, CLIENT_ORIGIN } = require('./config');
 const  { Course, User }  = require('./models');
 const  { AuthRoute }  = require('./passport');
-const  { CourseRoutes }  = require('./routes');
+const  { CourseRoutes, UserRoutes }  = require('./routes');
 
 let banner = `Welcome`;
 app.use(
@@ -30,7 +30,7 @@ app.use(morgan(
   
 app.use('/login', AuthRoute);
 app.use('/courses', CourseRoutes);
-
+app.use('/accounts', UserRoutes);
 
 
 app.get('/', (req, res) => {
