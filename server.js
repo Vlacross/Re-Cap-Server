@@ -43,11 +43,10 @@ app.get('/', (req, res) => {
 
 
 app.get('/too', (req, res) => {
-  console.log('trighnahGetzum')
+  
 
   User.findOne()
   .then(user => {
-    console.log(user)
     res.status(201).json(user)
   })
 
@@ -66,7 +65,7 @@ let server;
 function runServer() {
   mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, err => {
     if(err) {
-      console.log(err)
+      console.error(err)
       reject(err);
     }
 

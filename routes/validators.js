@@ -74,7 +74,6 @@ const noDuplicates = function(req, res, next) {
 };
 
 const avoidExceed = function(req, res, next) {
-  console.log('avoidExceed');
 
   return Course.findOne({_id: req.params.id}, function(err, course) {
 
