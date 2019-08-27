@@ -19,14 +19,31 @@ router.use('*', jwtAuth);
 
 
 router.delete('/remove', (req, res) => {
-  console.log('CoursesTrigger', req.body.id)
-  User.deleteOne({_id: req.body.id})
-    .then(() => {
-      
-        return res.json({
-          message: "User has been deleted successfully"
-        })
+  User.findById(req.body.id)
+  .then(user => {
+    if(user.username === 'jonjon' || user.username === 'tomtom') {
+      return res.json({
+        type: 'protected',
+        code: 418,
+        message: {
+          title: `${user.username} is a protected demo account!`,
+          info: 'If you would like to test the deletion properties, feel free to create an account!'
+        }
       })
+    }
+    else {
+      User.deleteOne({_id: req.body.id})
+      .then(() => {
+        
+          return res.json({
+            message: "User has been deleted successfully"
+          })
+        })
+    }
+
+
+  })
+  
 
 })
 

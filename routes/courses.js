@@ -25,7 +25,7 @@ router.use(jsonParser);
 
 
 router.get('/', (req, res) => {
-  console.log('CoursesTrigger')
+  
   Course.find()
   .then(list => {
     courses = [];
@@ -42,7 +42,6 @@ router.get('/', (req, res) => {
 
 
 router.get('/details/:id', (req, res) => {
-  console.log('Firing Single Course')
   Course.findOne({_id: req.params.id})
     .then(course => {
 
@@ -66,43 +65,58 @@ isStudent, checkEnrolled, noDuplicates,
 */
 
 router.put('/signup/:id', isStudent, checkEnrolled, noDuplicates, avoidExceed, (req, res) => {
-  console.log('courseSignUp', req.body, typeof req.body)
-  console.log('paramtel', req.params.id, typeof req.params.id)
     /*share Id's between course and student dataFiles */
     Promise.all([
       Course.findByIdAndUpdate(req.params.id, { $push: { 'enrollments': req.body.user } }, { runValidators: true, new: true }),
       Student.findByIdAndUpdate(req.body.user, { $push: { 'courses': req.params.id }, $set: { 'enrolled': true } }, { runValidators: true, new: true })
       .then(student => {
-        // console.log('studdell', student)
         res.json(student.format())
       })
     ])
-  // })
-  .catch(err => {
-    console.log(err.message)
-    res.json(err)
-  })
-});
 
-
-router.put('/remove/:id', jwtAuth, (req, res) => {
-  console.log('courseUnSignUp', req.body)
-    /*remove shared Id's between course and student dataFiles */
-  Promise.all([
-    Course.findByIdAndUpdate(req.params.id, { $pull: { 'enrollments': req.body.user } }, { new: true }),
-    Student.findByIdAndUpdate(req.body.user, { $pull: { 'courses': req.params.id }, $set: { 'enrolled': false } }, { new: true })
-    .then(student => {
-      console.log('studdell', student)
-      res.json(student.format())
+    .catch(err => {
+      res.json(err)
     })
-  ])
-  
-  .catch(err => {
-    console.log(err.message)
-    res.json(err)
-  })
-
 });
+
+
+router.put('/remove/:id', (req, res) => {
+    /*remove shared Id's between course and student dataFiles */
+
+    User.findById(req.body.user)
+    .then(user => {
+      if(user.username === 'jonjon' || user.username === 'tomtom') {
+        return res.json({
+          type: 'protected',
+          code: 418,
+          message: {
+            title: `${user.username} is a protected demo account!`,
+            info: 'If you would like to test the deletion properties, feel free to create an account!'
+          }
+        })
+      }
+      else {
+        
+        Promise.all([
+          Course.findByIdAndUpdate(req.params.id, { $pull: { 'enrollments': req.body.user } }, { new: true }),
+          Student.findByIdAndUpdate(req.body.user, { $pull: { 'courses': req.params.id }, $set: { 'enrolled': false } }, { new: true })
+          .then(student => {
+            res.json(student.format())
+          })
+        ])
+        .catch(err => {
+          console.log(err)
+          res.json(err)
+        })
+      }
+
+    })
+});
+
+
+
+
+
 
 
 module.exports = router
